@@ -77,7 +77,6 @@ def unban_user(user_id=None, user_name=None, user_surname=None):
     else:
         print("\033[91mKullanıcı bulunamadı\033[0m")
 
-# Reklam mesajı fonksiyonu
 def display_advertisement():
     text_art = """
      ⠀⠀⠀⠀⠀⠀⠸⣶⣦⡄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
