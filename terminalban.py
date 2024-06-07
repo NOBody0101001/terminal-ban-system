@@ -1,7 +1,12 @@
 import os
 
-def protocol_here(message):
-    print("\033[91m" + message + "\033[0m")
+def protocol_here(message, color=None):
+    if color == 'red':
+        print("\033[91m" + message + "\033[0m")
+    elif color == 'green':
+        print("\033[92m" + message + "\033[0m")
+    else:
+        print(message)
 
 def search_in_file(keyword, filename):
     with open(filename, 'r') as file:
@@ -34,18 +39,61 @@ def list_blacklist():
 
 def main_menu():
     text_art = """
-      _   _       _                  _           
-     | | | |     | |                | |          
-     | |_| |_   _| |_ ___  ___ _ __ | |__   __ _ 
-     |  _| | | | | __/ __|/ _ \ '_ \| '_ \ / _` |
-     | | | | |_| | |_\__ \  __/ |_) | | | | (_| |
-     |_| |_|\__,_|\__|___/\___| .__/|_| |_|\__, |
-                               | |         __/ |
-                               |_|        |___/ 
+                               ...----....
+                         ..-:"''         ''"-..
+                      .-'                      '-.
+                    .'              .     .       '.
+                  .'   .          .    .      .    .''.
+                .'  .    .       .   .   .     .   . ..:.
+              .' .   . .  .       .   .   ..  .   . ....::.
+             ..   .   .      .  .    .     .  ..  . ....:IA.
+            .:  .   .    .    .  .  .    .. .  .. .. ....:IA.
+           .: .   .   ..   .    .     . . .. . ... ....:.:VHA.
+           '..  .  .. .   .       .  . .. . .. . .....:.::IHHB.
+          .:. .  . .  . .   .  .  . . . ...:.:... .......:HIHMM.
+         .:.... .   . ."::"'.. .   .  . .:.:.:II;,. .. ..:IHIMMA
+         ':.:..  ..::IHHHHHI::. . .  ...:.::::.,,,. . ....VIMMHM
+        .:::I. .AHHHHHHHHHHAI::. .:...,:IIHHHHHHMMMHHL:. . VMMMM
+       .:.:V.:IVHHHHHHHMHMHHH::..:" .:HIHHHHHHHHHHHHHMHHA. .VMMM.
+       :..V.:IVHHHHHMMHHHHHHHB... . .:VPHHMHHHMMHHHHHHHHHAI.:VMMI
+       ::V..:VIHHHHHHMMMHHHHHH. .   .I":IIMHHMMHHHHHHHHHHHAPI:WMM
+       ::". .:.HHHHHHHHMMHHHHHI.  . .:..I:MHMMHHHHHHHHHMHV:':H:WM
+       :: . :.::IIHHHHHHMMHHHHV  .ABA.:.:IMHMHMMMHMHHHHV:'. .IHWW
+       '.  ..:..:.:IHHHHHMMHV" .AVMHMA.:.'VHMMMMHHHHHV:' .  :IHWV
+        :.  .:...:".:.:TPP"   .AVMMHMMA.:. "VMMHHHP.:... .. :IVAI
+       .:.   '... .:"'   .   ..HMMMHMMMA::. ."VHHI:::....  .:IHW'
+       ...  .  . ..:IIPPIH: ..HMMMI.MMMV:I:.  .:ILLH:.. ...:I:IM
+     : .   .'"' .:.V". .. .  :HMMM:IMMMI::I. ..:HHIIPPHI::'.P:HM.
+     :.  .  .  .. ..:.. .    :AMMM IMMMM..:...:IV":T::I::.".:IHIMA
+     'V:.. .. . .. .  .  .   'VMMV..VMMV :....:V:.:..:....::IHHHMH
+       "IHH:.II:.. .:. .  . . . " :HB"" . . ..PI:.::.:::..:IHHMMV"
+        :IP""HHII:.  .  .    . . .'V:. . . ..:IH:.:.::IHIHHMMMMM"
+        :V:. VIMA:I..  .     .  . .. . .  .:.I:I:..:IHHHHMMHHMMM
+        :"VI:.VWMA::. .:      .   .. .:. ..:.I::.:IVHHHMMMHMMMMI
+        :."VIIHHMMA:.  .   .   .:  .:.. . .:.II:I:AMMMMMMHMMMMMI
+        :..VIHIHMMMI...::.,:.,:!"I:!"I!"I!"V:AI:VAMMMMMMHMMMMMM'
+        ':.:HIHIMHHA:"!!"I.:AXXXVVXXXXXXXA:."HPHIMMMMHHMHMMMMMV
+          V:H:I:MA:W'I :AXXXIXII:IIIISSSSSSXXA.I.VMMMHMHMMMMMM
+            'I::IVA ASSSSXSSSSBBSBMBSSSSSSBBMMMBS.VVMMHIMM'"'
+             I:: VPAIMSSSSSSSSSBSSSMMBSSSBBMMMMXXI:MMHIMMI
+            .I::. "H:XIIXBBMMMMMMMMMMMMMMMMMBXIXXMMPHIIMM'
+            :::I.  ':XSSXXIIIIXSSBMBSSXXXIIIXXSMMAMI:.IMM
+            :::I:.  .VSSSSSISISISSSBII:ISSSSBMMB:MI:..:MM
+            ::.I:.  ':"SSSSSSSISISSXIIXSSSSBMMB:AHI:..MMM.
+            ::.I:. . ..:"BBSSSSSSSSSSSSBBBMMMB:AHHI::.HMMI
+            :..::.  . ..::":BBBBBSSBBBMMMB:MMMMHHII::IHHMI
+            ':.I:... ....:IHHHHHMMMMMMMMMMMMMMMHHIIIIHMMV"
+              "V:. ..:...:.IHHHMMMMMMMMMMMMMMMMHHHMHHMHP'
+               ':. .:::.:.::III::IHHHHMMMMMHMHMMHHHHM"
+                 "::....::.:::..:..::IIIIIHHHHMMMHHMV"
+                   "::.::.. .. .  ...:::IIHHMMMMHMV"
+                     "V::... . .I::IHHMMV"'
+                       '"VHVHHHAHHHHMMV:"'
+                       
     """
     print(text_art)
 
-    protocol_here("Hoş geldiniz!")
+    protocol_here("made by protocolhere", 'green')
     while True:
         print("\n")
         print("1. İsim ile arama")
@@ -60,21 +108,21 @@ def main_menu():
         if choice == '1':
             name = input("Aranacak ismi girin: ")
             if search_in_file(name, "black_list.txt"):
-                protocol_here("Yasaklı")
+                protocol_here("Yasaklı", 'red')
             else:
-                protocol_here("Yasaklı değil")
+                protocol_here("Yasaklı değil", 'green')
         elif choice == '2':
             surname = input("Aranacak soyismi girin: ")
             if search_in_file(surname, "black_list.txt"):
-                protocol_here("Yasaklı")
+                protocol_here("Yasaklı", 'red')
             else:
-                protocol_here("Yasaklı değil")
+                protocol_here("Yasaklı değil", 'green')
         elif choice == '3':
             player_id = input("Aranacak ID'yi girin: ")
             if search_in_file(player_id, "black_list.txt"):
-                protocol_here("Yasaklı")
+                protocol_here("Yasaklı", 'red')
             else:
-                protocol_here("Yasaklı değil")
+                protocol_here("Yasaklı değil", 'green')
         elif choice == '4':
             name = input("İsim: ")
             surname = input("Soyisim: ")
