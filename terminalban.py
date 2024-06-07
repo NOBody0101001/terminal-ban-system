@@ -39,56 +39,26 @@ def list_blacklist():
 
 def main_menu():
     text_art = """
-                               ...----....
-                         ..-:"''         ''"-..
-                      .-'                      '-.
-                    .'              .     .       '.
-                  .'   .          .    .      .    .''.
-                .'  .    .       .   .   .     .   . ..:.
-              .' .   . .  .       .   .   ..  .   . ....::.
-             ..   .   .      .  .    .     .  ..  . ....:IA.
-            .:  .   .    .    .  .  .    .. .  .. .. ....:IA.
-           .: .   .   ..   .    .     . . .. . ... ....:.:VHA.
-           '..  .  .. .   .       .  . .. . .. . .....:.::IHHB.
-          .:. .  . .  . .   .  .  . . . ...:.:... .......:HIHMM.
-         .:.... .   . ."::"'.. .   .  . .:.:.:II;,. .. ..:IHIMMA
-         ':.:..  ..::IHHHHHI::. . .  ...:.::::.,,,. . ....VIMMHM
-        .:::I. .AHHHHHHHHHHAI::. .:...,:IIHHHHHHMMMHHL:. . VMMMM
-       .:.:V.:IVHHHHHHHMHMHHH::..:" .:HIHHHHHHHHHHHHHMHHA. .VMMM.
-       :..V.:IVHHHHHMMHHHHHHHB... . .:VPHHMHHHMMHHHHHHHHHAI.:VMMI
-       ::V..:VIHHHHHHMMMHHHHHH. .   .I":IIMHHMMHHHHHHHHHHHAPI:WMM
-       ::". .:.HHHHHHHHMMHHHHHI.  . .:..I:MHMMHHHHHHHHHMHV:':H:WM
-       :: . :.::IIHHHHHHMMHHHHV  .ABA.:.:IMHMHMMMHMHHHHV:'. .IHWW
-       '.  ..:..:.:IHHHHHMMHV" .AVMHMA.:.'VHMMMMHHHHHV:' .  :IHWV
-        :.  .:...:".:.:TPP"   .AVMMHMMA.:. "VMMHHHP.:... .. :IVAI
-       .:.   '... .:"'   .   ..HMMMHMMMA::. ."VHHI:::....  .:IHW'
-       ...  .  . ..:IIPPIH: ..HMMMI.MMMV:I:.  .:ILLH:.. ...:I:IM
-     : .   .'"' .:.V". .. .  :HMMM:IMMMI::I. ..:HHIIPPHI::'.P:HM.
-     :.  .  .  .. ..:.. .    :AMMM IMMMM..:...:IV":T::I::.".:IHIMA
-     'V:.. .. . .. .  .  .   'VMMV..VMMV :....:V:.:..:....::IHHHMH
-       "IHH:.II:.. .:. .  . . . " :HB"" . . ..PI:.::.:::..:IHHMMV"
-        :IP""HHII:.  .  .    . . .'V:. . . ..:IH:.:.::IHIHHMMMMM"
-        :V:. VIMA:I..  .     .  . .. . .  .:.I:I:..:IHHHHMMHHMMM
-        :"VI:.VWMA::. .:      .   .. .:. ..:.I::.:IVHHHMMMHMMMMI
-        :."VIIHHMMA:.  .   .   .:  .:.. . .:.II:I:AMMMMMMHMMMMMI
-        :..VIHIHMMMI...::.,:.,:!"I:!"I!"I!"V:AI:VAMMMMMMHMMMMMM'
-        ':.:HIHIMHHA:"!!"I.:AXXXVVXXXXXXXA:."HPHIMMMMHHMHMMMMMV
-          V:H:I:MA:W'I :AXXXIXII:IIIISSSSSSXXA.I.VMMMHMHMMMMMM
-            'I::IVA ASSSSXSSSSBBSBMBSSSSSSBBMMMBS.VVMMHIMM'"'
-             I:: VPAIMSSSSSSSSSBSSSMMBSSSBBMMMMXXI:MMHIMMI
-            .I::. "H:XIIXBBMMMMMMMMMMMMMMMMMBXIXXMMPHIIMM'
-            :::I.  ':XSSXXIIIIXSSBMBSSXXXIIIXXSMMAMI:.IMM
-            :::I:.  .VSSSSSISISISSSBII:ISSSSBMMB:MI:..:MM
-            ::.I:.  ':"SSSSSSSISISSXIIXSSSSBMMB:AHI:..MMM.
-            ::.I:. . ..:"BBSSSSSSSSSSSSBBBMMMB:AHHI::.HMMI
-            :..::.  . ..::":BBBBBSSBBBMMMB:MMMMHHII::IHHMI
-            ':.I:... ....:IHHHHHMMMMMMMMMMMMMMMHHIIIIHMMV"
-              "V:. ..:...:.IHHHMMMMMMMMMMMMMMMMHHHMHHMHP'
-               ':. .:::.:.::III::IHHHHMMMMMHMHMMHHHHM"
-                 "::....::.:::..:..::IIIIIHHHHMMMHHMV"
-                   "::.::.. .. .  ...:::IIHHMMMMHMV"
-                     "V::... . .I::IHHMMV"'
-                       '"VHVHHHAHHHHMMV:"'
+                     :::!~!!!!!:.
+                  .xUHWH!! !!?M88WHX:.
+                .X*#M@$!!  !X!M$$$$$$WWx:.
+               :!!!!!!?H! :!$!$$$$$$$$$$8X:
+              !!~  ~:~!! :~!$!#$$$$$$$$$$8X:
+             :!~::!H!<   ~.U$X!?R$$$$$$$$MM!
+             ~!~!!!!~~ .:XW$$$U!!?$$$$$$RMM!
+               !:~~~ .:!M"T#$$$$WX??#MRRMMM!
+               ~?WuxiW*`   `"#$$$$8!!!!??!!!
+             :X- M$$$$       `"T#$T~!8$WUXU~
+            :%`  ~#$$$m:        ~!~ ?$$$$$$
+          :!`.-   ~T$$$$8xx.  .xWW- ~""##*"
+.....   -~~:<` !    ~?T#$$@@W@*?$$      /`
+W$@@M!!! .!~~ !!     .:XUW$W!~ `"~:    :
+#"~~`.:x%`!!  !H:   !WM$$$$Ti.: .!WUn+!`
+:::~:!!`:X~ .: ?H.!u "$$$B$$$!W:U!T$$M~
+.~~   :X@!.-~   ?@WTWo("*$$$W$TH$! `
+Wi.~!X$?!-~    : ?$$$B$Wu("**$RM!
+$R@i.~~ !     :   ~$$$$$B$$en:``
+?MXT@Wx.~    :     ~"##*$$$$M~
                        
     """
     print(text_art)
