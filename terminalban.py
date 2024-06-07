@@ -1,134 +1,98 @@
 import os
 
-home_dir = os.path.expanduser("~")
-ban_file_path = os.path.join(home_dir, "ban_list.txt")
+def protocol_here(message):
+    print("\033[91m" + message + "\033[0m")
 
-ban_list_memory = {}
-
-def load_ban_list():
-    global ban_list_memory
-    if not os.path.exists(ban_file_path):
-        ban_list_memory = {}
-        return
-    with open(ban_file_path, "r") as file:
+def search_in_file(keyword, filename):
+    with open(filename, 'r') as file:
         lines = file.readlines()
-    ban_list_memory = {}
-    for line in lines:
-        user_id, user_name, user_surname = line.strip().split(",")
-        ban_list_memory[user_id] = (user_name, user_surname)
+        for line in lines:
+            if keyword in line:
+                return True
+    return False
 
-def save_ban_list():
-    global ban_list_memory
-    with open(ban_file_path, "w") as file:
-        for user_id, (user_name, user_surname) in ban_list_memory.items():
-            file.write(f"{user_id},{user_name},{user_surname}\n")
+def add_to_blacklist(name, surname, player_id):
+    with open("black_list.txt", 'a') as file:
+        file.write(f"isim; {name}\nsoyisim; {surname}\nid; {player_id}\n")
 
-def ban_user(user_id, user_name, user_surname):
-    global ban_list_memory
-    ban_list_memory[user_id] = (user_name, user_surname)
-    save_ban_list()
-    print(f"Kullanıcı {user_name} {user_surname} (ID: {user_id}) yasaklandı.")
+def remove_from_blacklist(name, surname, player_id):
+    temp_file = "temp_black_list.txt"
+    with open("black_list.txt", 'r') as file, open(temp_file, 'w') as temp:
+        lines = file.readlines()
+        for line in lines:
+            if name in line and surname in line and player_id in line:
+                continue
+            temp.write(line)
+    os.remove("black_list.txt")
+    os.rename(temp_file, "black_list.txt")
 
-def check_ban_by_name(user_name):
-    global ban_list_memory
-    if user_name in [name for (name, _) in ban_list_memory.values()]:
-        print("\033[91mYasaklandı\033[0m")
-        return True
-    else:
-        print("\033[92mYasaklı değil\033[0m")
-        return False
+def list_blacklist():
+    with open("black_list.txt", 'r') as file:
+        lines = file.readlines()
+        for line in lines:
+            print(line.strip())
 
-def check_ban_by_surname(user_surname):
-    global ban_list_memory
-    if user_surname in [surname for (_, surname) in ban_list_memory.values()]:
-        print("\033[91mYasaklandı\033[0m")
-        return True
-    else:
-        print("\033[92mYasaklı değil\033[0m")
-        return False
-
-def check_ban_by_id(user_id):
-    global ban_list_memory
-    if user_id in ban_list_memory:
-        print("\033[91mYasaklandı\033[0m")
-        return True
-    else:
-        print("\033[92mYasaklı değil\033[0m")
-        return False
-
-def unban_user(user_id=None, user_name=None, user_surname=None):
-    global ban_list_memory
-    removed = False
-    if user_id and user_id in ban_list_memory:
-        del ban_list_memory[user_id]
-        removed = True
-    elif user_name:
-        for uid, (uname, usurname) in list(ban_list_memory.items()):
-            if uname == user_name:
-                del ban_list_memory[uid]
-                removed = True
-                break
-    elif user_surname:
-        for uid, (uname, usurname) in list(ban_list_memory.items()):
-            if usurname == user_surname:
-                del ban_list_memory[uid]
-                removed = True
-                break
-    if removed:
-        save_ban_list()
-        print("\033[92mYasak kaldırıldı\033[0m")
-    else:
-        print("\033[91mKullanıcı bulunamadı\033[0m")
-
-def display_advertisement():
+def main_menu():
     text_art = """
-     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ 
+      _   _       _                  _           
+     | | | |     | |                | |          
+     | |_| |_   _| |_ ___  ___ _ __ | |__   __ _ 
+     |  _| | | | | __/ __|/ _ \ '_ \| '_ \ / _` |
+     | | | | |_| | |_\__ \  __/ |_) | | | | (_| |
+     |_| |_|\__,_|\__|___/\___| .__/|_| |_|\__, |
+                               | |         __/ |
+                               |_|        |___/ 
     """
     print(text_art)
-    print("\033[91m made by protocolhere 😈\033[0m")
 
-def main():
-    load_ban_list()
+    protocol_here("Hoş geldiniz!")
     while True:
-        display_advertisement()
-        print("\n1. Name Check\n2. Surname Check\n3. ID Check\n4. Add Ban\n5. Remove Ban\n6. Exit")
-        choice = input("Bir seçenek seçin: ")
-        
-        if choice == "1":
-            user_name = input("Kullanıcı adını girin (Opsiyonel): ")
-            if user_name:
-                check_ban_by_name(user_name)
+        print("\n")
+        print("1. İsim ile arama")
+        print("2. Soyisim ile arama")
+        print("3. ID ile arama")
+        print("4. Ban ekleme")
+        print("5. Ban kaldırma")
+        print("6. Yasaklıların tam listesi")
+        print("7. Çıkış")
+        choice = input("Seçiminizi yapın: ")
+
+        if choice == '1':
+            name = input("Aranacak ismi girin: ")
+            if search_in_file(name, "black_list.txt"):
+                protocol_here("Yasaklı")
             else:
-                print("Kullanıcı adı girilmedi.")
-        elif choice == "2":
-            user_surname = input("Kullanıcı soyadını girin (Opsiyonel): ")
-            if user_surname:
-                check_ban_by_surname(user_surname)
+                protocol_here("Yasaklı değil")
+        elif choice == '2':
+            surname = input("Aranacak soyismi girin: ")
+            if search_in_file(surname, "black_list.txt"):
+                protocol_here("Yasaklı")
             else:
-                print("Kullanıcı soyadı girilmedi.")
-        elif choice == "3":
-            user_id = input("Kullanıcı ID'sini girin (Opsiyonel): ")
-            if user_id:
-                check_ban_by_id(user_id)
+                protocol_here("Yasaklı değil")
+        elif choice == '3':
+            player_id = input("Aranacak ID'yi girin: ")
+            if search_in_file(player_id, "black_list.txt"):
+                protocol_here("Yasaklı")
             else:
-                print("Kullanıcı ID'si girilmedi.")
-        elif choice == "4":
-            user_id = input("Yasaklamak istediğiniz kullanıcının ID'sini girin: ")
-            user_name = input("Yasaklamak istediğiniz kullanıcının adını girin: ")
-            user_surname = input("Yasaklamak istediğiniz kullanıcının soyadını girin: ")
-            ban_user(user_id, user_name, user_surname)
-        elif choice == "5":
-            user_id = input("Banını kaldırmak istediğiniz kullanıcının ID'sini girin (Opsiyonel): ")
-            user_name = input("Banını kaldırmak istediğiniz kullanıcının adını girin (Opsiyonel): ")
-            user_surname = input("Banını kaldırmak istediğiniz kullanıcının soyadını girin (Opsiyonel): ")
-            unban_user(user_id or None, user_name or None, user_surname or None)
-        elif choice == "6":
+                protocol_here("Yasaklı değil")
+        elif choice == '4':
+            name = input("İsim: ")
+            surname = input("Soyisim: ")
+            player_id = input("ID: ")
+            add_to_blacklist(name, surname, player_id)
+            protocol_here("Oyuncu başarıyla yasaklandı.")
+        elif choice == '5':
+            name = input("İsim: ")
+            surname = input("Soyisim: ")
+            player_id = input("ID: ")
+            remove_from_blacklist(name, surname, player_id)
+            protocol_here("Oyuncunun yasağı kaldırıldı.")
+        elif choice == '6':
+            list_blacklist()
+        elif choice == '7':
             break
         else:
-            print("Geçersiz seçenek, lütfen tekrar deneyin.")
+            protocol_here("Geçersiz seçim!")
 
 if __name__ == "__main__":
-    if not os.path.exists(ban_file_path):
-        open(ban_file_path, 'w').close()
-    
-    main()
+    main_menu()
